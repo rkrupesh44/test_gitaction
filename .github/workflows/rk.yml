@@ -1,0 +1,107 @@
+#The name of your workflow.GitHub displays the names of your workflows on your repository's actions page.
+name: " build-test"
+
+#Event
+on:
+  schedule:
+    #This example triggers the workflow to run at 5:30 UTC every Monday-Thursday,
+    # but skips the Not on Monday or Wednesday step on Monday and Wednesday.
+    # * is a special character in YAML so you have to quote this string
+    - cron: '30 5 * * 1,3'
+    - cron: '30 5 * * 2,4'
+
+  pull_request:
+
+  push:
+     branches: 
+      - main
+      - 'releases/**'
+      - dev
+      - '!features/**'  #ingnore ths branch !
+    
+    tags:
+      - '!v3'  #ingnore ths version !
+      - v2
+      - v1.*
+    
+    paths:
+      - '**.js'
+      - '!docs/**'  #ingnore ths doc path !
+
+  label:
+    issue:
+      types:
+        - created
+
+permissions: read-all|write-all
+
+jobs:
+  my_first_job:
+    runs-on: ubuntu-latest  #Choosing GitHub-hosted runners
+    steps:
+      - name: Not on Monday or Wednesday
+        if: github.event.schedule != '30 5 * * 1,3'
+        run: echo "This step will be skipped on Monday and Wednesday"
+      - name: Every time
+        run: echo "This step will always run"
+  
+  my_second_job:
+    #In this example, job1 must complete successfully before job2 begins, and job3 waits for both job1 and job2 to complete.
+     job1:
+     job2:
+        needs: job1
+      job3:
+        needs: [job1, job2]
+    #job3 uses the always() conditional expression so that it always runs after job1 and job2 have completed, regardless of whether they were successful.
+      job1:
+      job2:
+        needs: job1
+      job3:
+        if: ${{ always() }}
+        needs: [job1, job2]
+  
+  #This example uses if to control when the production-deploy job can run. It will only run if the repository is named octo-repo-prod and is within the octo-org organization. Otherwise, the job will be marked as skipped.
+  my_third_job:
+      production-deploy:
+        if: github.repository == 'octo-org/octo-repo-prod'
+        runs-on: ubuntu-latest  #Choosing GitHub-hosted runners
+        steps:
+          - uses: actions/checkout@v2
+          - uses: actions/setup-node@v2
+            with:
+              node-version: '14'
+          - run: npm install -g bats 
+          #Using the working-directory keyword, you can specify the working directory of where to run the command.
+          - name: Clean temp directory
+              run: rm -rf *
+              working-directory: ./temp
+
+        environment:
+          name: production_environment
+          url: https://github.com
+          #Also The URL can be an expression and can use any context except for the secrets context
+          url: ${{ steps.step_id.outputs.url_output }}
+
+  my_fourth_job:
+    #Running a job within a container
+    Running-job-container:
+      container:
+        image: node:14.16
+        env:  ##Use jobs.<job_id>.container.env to set a map of environment variables in the container
+          NODE_ENV: development 
+        ports:  #Use jobs.<job_id>.container.ports to set an array of ports to expose on the container.
+          - 80
+        volumes:  #Mounting volumes in a container
+          - my_docker_volume:/volume_mount
+          - /data/my_data
+          - /source/directory:/destination/directory
+        options: --cpus 1 #Use jobs.<job_id>.container.options to configure additional Docker container resource options.
+      #Defining credentials for a container registry
+      container:
+        image: ghcr.io/owner/image
+        credentials:
+          username: ${{ github.actor }}
+          password: ${{ secrets.github_token }}
+
+
+ 

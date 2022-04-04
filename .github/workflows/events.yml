@@ -1,0 +1,181 @@
+#Events that trigger workflows
+name: Available events
+
+on: 
+  branch_protection_rule:
+    types: 
+      - created
+      - edited
+      - deleted
+  check_run:
+    types: 
+      - created
+      - rerequested
+      - completed
+      - requested_action
+  check_suite:
+    types: [completed] #also we can write activities in tis way and "," seperate for multiple
+  create: #n/a activity types
+  delete: #n/a activity types
+  deployment: #n/a activity types
+  deployment_status: #n/a activity types
+  discussion:
+    types:
+      - created
+      - edited
+      - deleted
+      - transferred
+      - pinned
+      - unpinned
+      - labeled
+      - unlabeled
+      - locked
+      - unlocked
+      - category_changed
+      - answered
+      - unanswered
+  discussion_comment:
+    types: [created, edited, deleted]
+  fork: #n/a activity types
+  gollum: #n/a activity types
+  issue_comment:
+    types: 
+      - created
+      - edited
+      - deleted
+  issues:
+    types:
+      - opened
+      - edited
+      - deleted
+      - transferred
+      - pinned
+      - unpinned
+      - closed
+      - reopened
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+      - locked
+      - unlocked
+      - milestoned
+      - demilestoned
+  label:
+    types:
+      - created
+      - edited
+      - deleted
+  milestone:
+    types: 
+      - created
+      - closed
+      - opened
+      - edited
+      - deleted
+  page_build: #n/a activity types
+  project:
+    types: 
+      - created
+      - closed
+      - reopened
+      - edited
+      - deleted
+  project_card:
+    types:
+      - created
+      - moved
+      - converted to an issue
+      - edited
+      - deleted
+  project_column:
+    types:
+      - created
+      - updated
+      - moved
+      - deleted
+  public:
+
+  pull_request:
+    types:
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+      - opened
+      - edited
+      - closed
+      - reopened
+      - synchronize
+      - converted_to_draft
+      - ready_for_review
+      - locked
+      - unlocked
+      - review_requested
+      - review_request_removed
+      - auto_merge_enabled
+      - auto_merge_disabled
+  pull_request_comment (use issue_comment):
+    #To run your workflow when a comment on a pull request (not on a pull request's diff) is created, edited, or deleted, use the issue_comment event. For activity related to pull request reviews or pull request review comments, use the pull_request_review or pull_request_review_comment events.
+    types:
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
+  pull_request_review_comment:
+    types:
+      - created
+      - edited
+      - deleted
+  pull_request_target:
+    types:
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+      - opened
+      - edited
+      - closed
+      - reopened
+      - synchronize
+      - converted_to_draft
+      - ready_for_review
+      - locked
+      - unlocked
+      - review_requested
+      - review_request_removed
+      - auto_merge_enabled
+      - auto_merge_disabled
+  push: #n/a activity types
+  registry_package:
+    types:
+      - published
+      - updated
+  release:
+    types:
+      - published
+      - unpublished
+      - created
+      - edited
+      - deleted
+      - prereleased
+      - released
+  repository_dispatch:
+    types:  [on-demand-test]  #Custom
+  schedule: #n/a activity types
+    #You can use these operators in any of the five fields:
+    # Operator	Description	Example
+    #  *	Any value	15 * * * * runs at every minute 15 of every hour of every day.
+    #  ,	Value list separator	2,10 4,5 * * * runs at minute 2 and 10 of the 4th and 5th hour of every day.
+    #  -	Range of values	30 4-6 * * * runs at minute 30 of the 4th, 5th, and 6th hour.
+    #  /	Step values	20/15 * * * * runs every 15 minutes starting from minute 20 through 59 (minutes 20, 35, and 50)
+  status: #n/a activity types    
+  watch:
+    types:  [started]
+  workflow_call:  #n/a activity types
+  workflow_dispatch:  #n/a activity types
+  workflow_run:
+    types:
+      - completed
+      - requested
