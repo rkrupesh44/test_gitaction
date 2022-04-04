@@ -13,5 +13,5 @@ jobs:
           node -v
           npm -v
       - name: python Command
-        run: print "Good Morning"
+        run: print ("Good Morning")
         shell: python 
