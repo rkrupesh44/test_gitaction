@@ -7,8 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo a string
-        run: echo "Hello IKEA"
+        run: echo "Hello World"
       - name: multiple script
         run: |
           node -v
           npm -v
+      - name: python Command
+        run: print "Good Morning"
+        shell: python 
