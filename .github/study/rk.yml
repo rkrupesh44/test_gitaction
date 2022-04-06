@@ -47,8 +47,8 @@ jobs:
   
   my_second_job:
     #In this example, job1 must complete successfully before job2 begins, and job3 waits for both job1 and job2 to complete.
-     job1:
-     job2:
+      job1:
+      job2:
         needs: job1
       job3:
         needs: [job1, job2]
@@ -73,7 +73,7 @@ jobs:
           - run: npm install -g bats 
           #Using the working-directory keyword, you can specify the working directory of where to run the command.
           - name: Clean temp directory
-              run: rm -rf *
+              //run: rm -rf *
               working-directory: ./temp
 
         environment:
