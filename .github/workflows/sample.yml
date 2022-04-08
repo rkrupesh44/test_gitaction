@@ -28,7 +28,7 @@ jobs:
         run: pwd
         shell: bash
       - name: call as api
-        run: gh api -X POST -H "Accept:application/vnd.github.v3+json" -H "Authorization:GITHUB_TOKEN" https://api.github.com/repos/rkrupesh44/test_gitaction/actions/workflows/sample.yml/dispatches -d '{"ref":"feature1"}'
+        run: gh api -X POST -H "Accept:application/vnd.github.v3+json" -H "Authorization:GITHUB_TOKEN" https://api.github.com/repos/rkrupesh44/test_gitaction/actions/workflows/sample.yml/dispatches -H '{"ref":"feature1"}'
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
