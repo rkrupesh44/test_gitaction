@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run script file
-        run: sh ./scriptcall.sh
+        run: |
+          chmod +x scriptcall.sh
+          ./scriptcall.sh
         shell: bash
   
