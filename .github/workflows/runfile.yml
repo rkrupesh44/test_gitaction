@@ -9,7 +9,8 @@ jobs:
     steps:
       - name: run script file
         run: |
-          chmod +x scriptcall.sh
+          cd https://github.com/rkrupesh44/test_gitaction/edit/main/.github/workflows
+          chmod 777 scriptcall.sh
           ./scriptcall.sh
         shell: bash
   
