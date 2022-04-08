@@ -1,0 +1,13 @@
+name: run script file
+
+on: 
+  push
+
+jobs:
+  run_script_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run script file
+        run: sh ./scriptcall.sh
+        shell: bash
+  
